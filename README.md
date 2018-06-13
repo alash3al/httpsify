@@ -24,7 +24,7 @@ $ go get -u github.com/alash3al/httpsify
 ```
 
 ### # Configurations
-> Goto your `$HOME` Directory and edit the `hosts.json` to something like this
+> Create the directory `$HOME/.httpsify` if it doesn't exist already and create/edit the `hosts.json` to something like this
 ```json
 {
 	"example1.com": ["http://localhost:9080"],
