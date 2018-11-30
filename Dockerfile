@@ -1,9 +1,9 @@
-FROM golang:alpine
+FROM golang:alpine AS builder
 
-RUN apk update && apk add git
+RUN apk add --no-cache git && CGO_ENABLED=0 GOOS=linux go get github.com/alash3al/httpsify
 
-RUN go get github.com/alash3al/httpsify
+FROM scratch
 
-ENTRYPOINT ["httpsify"]
+COPY --from=builder /go/bin/httpsify /go/bin/httpsify
 
-WORKDIR /root/
+ENTRYPOINT ["/go/bin/httpsify"]
