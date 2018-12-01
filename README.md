@@ -11,7 +11,7 @@ NOTES
 ### # Using Docker
 > Just run the following and then have fun !!
 ```bash
-$ docker run --network host -v $HOME:/root/ -p 443:443 alash3al/httpsify
+$ docker run --network host -v ~/.httpsify:/.httpsify -p 443:443 alash3al/httpsify
 ```
 
 ## # From Binaries
