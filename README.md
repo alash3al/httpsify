@@ -2,9 +2,6 @@ HTTPSify
 ========
 A `Let'sEncrypt` based reverse proxy, that will automatically generate &amp; renew valid `ssl` certs for your domains, it also enables the `http/2` protocol by default, and uses `roundrobin` as an algorithm to loadbalance the incoming requests between multiple `upstreams`, as well as redirecting the traffic from `http` traffic to `https` just if you enabled the flag `--redirect`.
 
-NOTES
-=======
-> HTTPSify only supports `http-01` challenge because [Let's Encrypt disables TLS-SNI-01 validation](http://www.zdnet.com/article/lets-encrypt-disables-tls-sni-01-validation/)
 
 # Quick Start
 
