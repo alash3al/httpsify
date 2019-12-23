@@ -22,7 +22,7 @@ func main() {
 			if *flagSendXSecuredBy {
 				c.Response().Header().Set("X-Secured-By", "https://github.com/alash3al/httpsify")
 			}
-			next(c)
+			return next(c)
 		}
 	})
 
