@@ -15,6 +15,7 @@ func preloadCerts() {
 			resp, err := http.Get("http://" + h)
 			if err != nil {
 				log.Println(err.Error())
+				return
 			}
 			defer resp.Body.Close()
 			log.Printf("=> preloading certs result for %s -> %s\n", h, resp.Status)

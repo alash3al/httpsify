@@ -30,6 +30,8 @@ func init() {
 			}
 
 			hosts.Store(resultedHosts)
+
+			preloadCerts()
 		})
 	}
 

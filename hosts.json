@@ -1,3 +1,3 @@
 {
-    "test1.store:9091": ["localhost:8002"]
+    "test1.store": ["localhost:8002"]
 }
