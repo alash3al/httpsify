@@ -17,6 +17,14 @@ func main() {
 	e.Use(middleware.HTTPSRedirect())
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
+	e.Use(func(next echo.HandlerFunc) echo.HandlerFunc {
+		return func(c echo.Context) error {
+			if *flagSendXSecuredBy {
+				c.Response().Header().Set("X-Secured-By", "https://github.com/alash3al/httpsify")
+			}
+			next(c)
+		}
+	})
 
 	e.Any("/*", handler)
 
