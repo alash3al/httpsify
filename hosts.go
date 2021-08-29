@@ -76,10 +76,8 @@ func watchHostsChanges(filename string, fn func()) error {
 	watcher.Add(filename)
 
 	for {
-		select {
-		case <-watcher.Events:
-			fn()
-		}
+		<-watcher.Events
+		fn()
 	}
 }
 
