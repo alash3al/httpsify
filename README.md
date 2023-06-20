@@ -24,14 +24,14 @@ $ go get -u github.com/alash3al/httpsify
 > Goto your `$HOME` Directory and edit the `hosts.json` to something like this
 ```json
 {
-	"example1.com": ["http://localhost:9080"],
-	"example2.com": ["http://localhost:8080", "http://localhost:8081"]
+	"example1.com": ["localhost:9080"],
+	"example2.com": ["localhost:8080", "localhost:8081"]
 }
 ```
 > As you see, the configuration file accepts a `JSON` object/hashmap of `domain` -> `upstreams`,
-and yes, it can loadbalance the requests between multiple upstreams using `roundrobin` algorithm.
+and yes, it can load-balance the requests between multiple upstreams using `roundrobin` algorithm.
 
-> Also You don't need to restart the server to reload the configurations, because `httpsify` automatically watches the
+> Also, You don't need to restart the server to reload the configurations, because `httpsify` automatically watches the
 configurations file and reload it on any change.
 
 # License
