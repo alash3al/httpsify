@@ -1,10 +1,21 @@
-FROM golang:alpine AS builder
+FROM golang:1.18-alpine As builder
 
-RUN apk add --no-cache git && CGO_ENABLED=0 GOOS=linux go get github.com/alash3al/httpsify
-RUN apk add -U --no-cache ca-certificates
+WORKDIR /httpsify/
 
-FROM scratch
-COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
-COPY --from=builder /go/bin/httpsify /go/bin/httpsify
+RUN apk update && apk add git
 
-ENTRYPOINT ["/go/bin/httpsify"]
+COPY go.mod go.sum ./
+
+RUN go mod download
+
+COPY . .
+
+RUN CGO_ENABLED=0 go build -ldflags "-s -w" -o /usr/bin/httpsify ./cmd/
+
+FROM alpine
+
+WORKDIR /httpsify/
+
+COPY --from=builder /usr/bin/httpsify /usr/bin/httpsify
+
+CMD httpsify
