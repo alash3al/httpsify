@@ -19,6 +19,8 @@ func main() {
 		UserAgent:    "https://github.com/alash3al/httpsify",
 	}
 
+	httpChallengeHandler := e.AutoTLSManager.HTTPHandler(nil)
+
 	e.Use(middleware.HTTPSRedirect())
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
@@ -27,11 +29,21 @@ func main() {
 			if *flagSendXSecuredBy {
 				c.Response().Header().Set("X-Secured-By", "https://github.com/alash3al/httpsify")
 			}
-			return next(c)
+
+			if !c.IsTLS() {
+				return echo.WrapHandler(httpChallengeHandler)(c)
+			}
+
+			hosts := hosts.Load().(map[string]*echo.Echo)
+			host := hosts[c.Request().Host]
+
+			if host == nil {
+				return echo.ErrNotFound
+			}
+
+			return echo.WrapHandler(host)(c)
 		}
 	})
-
-	e.Any("/*", handler)
 
 	errChan := make(chan error)
 
